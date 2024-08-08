@@ -18,6 +18,6 @@ password:{
     
 },
 
-}, {timestamps: true});
+}, {timestamps: true, collection:'User'});
 
 export const User = mongoose.model("User", userSchema);
