@@ -24,3 +24,14 @@ app.listen(port, ()=>{
 
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
+
+app.use((err, req, res, next)=>{
+    const statuscode = err.statuscode || 500;
+    const message = err.message || 'Internal server error';
+    return res.status(statuscode).json({
+        sucess: false,
+        error: message,
+        statuscode: statuscode, // here we can write just statuscode because the variable we have declared is same.
+        
+    });
+})
