@@ -18,14 +18,12 @@ export const signup = async (req, res, next)=>{
     //     console.log('User still exists:', deletedUser);
     // }
     
-
     const newUser = new User({username, email, password:hashedPassword});
     try {
         await newUser.save();
     res.status(201).json({message: "User created succesfully"})
     } catch (error) {
-        next(errorHandler(300, "Something went wrong"));
+        next(error);
         
-    }
-    
+    } 
 };

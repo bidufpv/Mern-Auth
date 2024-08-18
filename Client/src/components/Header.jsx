@@ -3,9 +3,9 @@ import {Link} from 'react-router-dom'
 
 function Header() {
   return (
-    <div className='bg-slate-700 '>
+    <div className='bg-slate-900 '>
         <div className='flex justify-between items-center 
-        max-w-7xl mx-auto p-3 text-yellow-200 '>
+        max-w-7xl mx-auto p-3 text-blue-300'>
 
             <Link to='/'>
             <h1 className='font-bold'>Mern-Auth</h1>            
@@ -29,7 +29,7 @@ function Header() {
             <li>Sign-In</li>
             </Link>
 
-            <Link  to='./signup'>
+            <Link  to='./Signup'>
             <li>Sign-Up</li>
             </Link>
           </ul>

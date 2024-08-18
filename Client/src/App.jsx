@@ -1,11 +1,7 @@
 import { useState } from 'react'
+import Header from '../src/components/Header'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
-import Signin from './pages/Signin'
-import Signup from './pages/Signup'
-import About from './pages/About'
-import Profile from './pages/Profile'
-import Home from './pages/Home'
-import Header from './components/Header'
+import {About,Profile,Home,Signin,Signup} from './pages/index'
 
 
 function App() {
@@ -15,14 +11,14 @@ function App() {
     <Header />
     
     <Routes>
-    <Route path='/' element={Home} />
-    <Route path='/Profile' element={Profile} />
-    <Route path='/About' element={About} />
-    <Route path='/Signin' element={Signin} />
-    <Route path='/Signup' element={Signup} />
+    <Route path='/' element={<Home/>} />
+    <Route path='/Profile' element={<Profile/>} />
+    <Route path='/About' element={<About/>} />
+    <Route path='/Signin' element={<Signin/>} />
+    <Route path='/Signup' element={<Signup />} />
     </Routes>
     </BrowserRouter>
   )
 }
 
-export default App
+export default App;
