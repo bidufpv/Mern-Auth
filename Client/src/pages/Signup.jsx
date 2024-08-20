@@ -1,23 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Signin from './Signin'
 
 export default function Signup(){
-       
+    const [formData, SetFormData] = useState({})   
+    const [loading, SetLoading] = useState(false)
+    const [error, SetError] = useState(false)
+  const handleSubmit = (e)=>{
+     SetFormData({...formData, [e.target.id]: e.target.value})
+  };
 
+console.log(formData);
 
+const handleformSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    SetLoading(true);
+    SetError(false);
+    const res = await fetch('http://localhost:4000/api/auth/signup',{
+      method: 'POST',
+      headers:{
+        'Content-Type':'application/json',
+      },
+      body: JSON.stringify(formData),
+     });
+     const data = await res.json();
+     console.log(data);
+    SetLoading(false);
 
+    if(data.success === false){
+      SetError(true);
+      return;
+    }
+      //  SetError(false);  
 
+  } catch (error) {
+    SetLoading(false);
+    SetError(true);
+  }
+ 
+};
 
     return(
         <div className='p-3 max-w-lg mx-auto'>
         <h1 className='text-3xl text-center text-blue-400 font-semibold my-10'>SIGN UP</h1>
-        <form className='flex flex-col gap-4'>
+        <form onSubmit={handleformSubmit} className='flex flex-col gap-4'>
           <input
             type='text'
             placeholder='Username'
             id='username'
             className='bg-slate-100 p-3 rounded-lg'
+            onChange={handleSubmit}
         
           />
           <input
@@ -25,6 +57,7 @@ export default function Signup(){
             placeholder='Email'
             id='email'
             className='bg-slate-100 p-3 rounded-lg'
+            onChange={handleSubmit}
             
           />
           <input
@@ -32,11 +65,12 @@ export default function Signup(){
             placeholder='Password'
             id='password'
             className='bg-slate-100 p-3 rounded-lg'
+            onChange={handleSubmit}
             
           />
-          <button className='bg-slate-900 text-blue-300 
+          <button disabled={loading} className='bg-slate-900 text-blue-300 
           p-3 rounded-lg uppercase hover:opacity-90
-          disabled:opacity-80'>Submit</button>
+          disabled:opacity-80'>{loading ? 'Loading...': 'Sign Up'}</button>
 
          <div className="flex gap-4">
           <button className='bg-slate-900 text-blue-300 
@@ -55,12 +89,13 @@ export default function Signup(){
          </div>
          </form>
 
-         <div className="flex gap-2">
+         <div className="flex gap-2 mt-5">
           <p>Have an account?</p>
           <Link to='/Signin'>
           <span className="text-blue-500">SignIn</span>
           </Link>
          </div>
+         <p className="text-red-600 mt-5">{error && "Something wet wrong!"}</p>
          </div>
            
       

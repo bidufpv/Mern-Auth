@@ -1,9 +1,9 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import cors from 'cors';
 import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/auth.route.js';
-
 dotenv.config();
 
 mongoose.connect(process.env.MONGODB).then(()=>{
@@ -14,6 +14,7 @@ mongoose.connect(process.env.MONGODB).then(()=>{
 })
 
 const app = express();
+
 app.use(express.json());
 const port = process.env.PORT;
 
@@ -21,6 +22,7 @@ app.listen(port, ()=>{
     console.log(`Server is listening on ${port}`);
 });
 
+app.use(cors());
 
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
