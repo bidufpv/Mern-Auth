@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import AuthForm from "./AuthForm";
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 
 
 export default function Signin() {
   const [formData, SetFormData] = useState({});
   const [loading, SetLoading] = useState(false);
   const [error, SetError] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     SetFormData({ ...formData, [e.target.id]: e.target.value });
@@ -32,6 +33,11 @@ export default function Signin() {
         SetError(true);
         return;
       }
+
+     // for navigating to the dashboard
+     navigate('/');
+
+
     } catch (error) {
       SetLoading(false);
       SetError(true);
@@ -49,6 +55,7 @@ export default function Signin() {
         handleSubmit={handleFormSubmit}
         loading={loading}
         buttonText="Sign In"
+        
       />
 
       
@@ -73,6 +80,7 @@ export default function Signin() {
 <p>Dont have an account?</p>
 <Link to='/Signup'>
 <span className="text-blue-500">SignUp</span>
+{error && <p className="text-red-600 mt-5">Something went wrong!</p>}
 </Link>
 </div>
 </div>
