@@ -30,13 +30,14 @@ export const signin = async(req, res, next)=>{
         const token = jwt.sign({id: validUser._id}, process.env.JWT_SECRET);
         const {password: hashedPassword, ...rest} = validUser._doc;
         
-const expirydate = new Date(Date.now()+3600000); //for 1hour
+        const expirydate = new Date(Date.now()+3600000); //for 1hour
 
         res.cookie('access_token', token, {httpOnly: true, expires: expirydate}).status(200).json(rest);
       } catch (error) {
         next(error);
       }
 }
+
 
 // const deletedUser = await User.findOne({ username: 'Hero' });
     // // Delete the user with the username 'Hero'

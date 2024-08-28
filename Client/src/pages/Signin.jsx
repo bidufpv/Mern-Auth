@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import AuthForm from "./AuthForm";
 import {Link, useNavigate} from 'react-router-dom'
+import { signInStart, signInSuccess, signInFailure } from "../redux/user/userSlice";
+import { useDispatch } from "react-redux";
 
 
 export default function Signin() {
@@ -8,6 +10,7 @@ export default function Signin() {
   const [loading, SetLoading] = useState(false);
   const [error, SetError] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     SetFormData({ ...formData, [e.target.id]: e.target.value });
@@ -16,6 +19,7 @@ export default function Signin() {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
+      dispatch(signInStart());
       SetLoading(true);
       SetError(false);
       const res = await fetch("http://localhost:4000/api/auth/signin", {
@@ -27,7 +31,7 @@ export default function Signin() {
       });
       const data = await res.json();
       console.log(data);
-      SetLoading(false);
+      dispatch(signInSuccess());
 
       if (data.success === false) {
         SetError(true);
