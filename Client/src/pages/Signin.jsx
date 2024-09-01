@@ -3,6 +3,7 @@ import AuthForm from "./AuthForm";
 import {Link, useNavigate} from 'react-router-dom'
 import { signInStart, signInSuccess, signInFailure } from "../redux/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import OAuth from "../components/OAuth";
 
 
 export default function Signin() {
@@ -58,6 +59,7 @@ export default function Signin() {
       <h1 className="text-3xl text-center text-blue-400 font-semibold my-10">
         SIGN IN
       </h1>
+
       <AuthForm
         formData={formData}
         handleChange={handleChange}
@@ -66,8 +68,10 @@ export default function Signin() {
         buttonText="Sign In"
         
       />
-
       
+      <OAuth/>
+
+{/*       
 <div className="flex gap-4">
           <button className='bg-slate-900 text-blue-300 
             p-3 rounded-full w-14 h-14 flex items-center justify-center
@@ -82,7 +86,7 @@ export default function Signin() {
         <img src="https://www.transparentpng.com/thumb/google-logo/google-logo-png-icon-free-download-SUF63j.png" 
          alt="Google Logo" className="w-10 h-10" />
          </button>
-         </div>
+         </div> */}
     
 
 <div className="flex gap-2 mt-5">

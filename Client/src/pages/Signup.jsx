@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import AuthForm from "./AuthForm";
 import { Link } from "react-router-dom";
+import OAuth from "../components/OAuth";
 
 export default function Signup() {
     const [formData, SetFormData] = useState({});
@@ -49,6 +50,8 @@ export default function Signup() {
                 buttonText="Sign Up"
             />
 
+            <OAuth/>
+
             
          <div className="flex gap-4">
           <button className='bg-slate-900 text-blue-300 
@@ -57,13 +60,13 @@ export default function Signup() {
           <img src="https://cdn.pixabay.com/photo/2022/01/30/13/33/github-6980894_960_720.png" 
          alt="GitHub Logo" className="w-10 h-10" />
          </button>
-
+{/* 
          <button className='bg-red-500 text-white 
             p-3 rounded-full w-14 h-14 flex items-center justify-center
             hover:opacity-90 disabled:opacity-80'>
         <img src="https://www.transparentpng.com/thumb/google-logo/google-logo-png-icon-free-download-SUF63j.png" 
          alt="Google Logo" className="w-10 h-10" />
-         </button>
+         </button> */}
          </div>
         
 
