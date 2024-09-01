@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import AuthForm from "./AuthForm";
 import {Link, useNavigate} from 'react-router-dom'
 import { signInStart, signInSuccess, signInFailure } from "../redux/user/userSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 
 export default function Signin() {
   const [formData, SetFormData] = useState({});
-  const [loading, SetLoading] = useState(false);
-  const [error, SetError] = useState(false);
+  const {loading, error} = useSelector((state)=>state.user);
+  console.log(loading, error);
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -20,8 +21,7 @@ export default function Signin() {
     e.preventDefault();
     try {
       dispatch(signInStart());
-      SetLoading(true);
-      SetError(false);
+
       const res = await fetch("http://localhost:4000/api/auth/signin", {
         method: "POST",
         headers: {
@@ -31,20 +31,25 @@ export default function Signin() {
       });
       const data = await res.json();
       console.log(data);
-      dispatch(signInSuccess());
+      
+      console.log(res.ok);
+      
+      if (res.ok === true) {
+        
+        dispatch(signInSuccess());
+        navigate('/')
+        
+      }else{
+        // for navigating to the dashboard
+        //  navigate('/');
+          dispatch(signInFailure(data.message));
+                
 
-      if (data.success === false) {
-        SetError(true);
-        return;
       }
-
-     // for navigating to the dashboard
-     navigate('/');
-
-
+      
     } catch (error) {
-      SetLoading(false);
-      SetError(true);
+      dispatch(signInFailure());
+      
     }
   };
 
@@ -84,7 +89,9 @@ export default function Signin() {
 <p>Dont have an account?</p>
 <Link to='/Signup'>
 <span className="text-blue-500">SignUp</span>
-{error && <p className="text-red-600 mt-5">Something went wrong!</p>}
+<p className="text-red-600 mt-5">
+  {error ? error || 'Something went wrong!' : "" }
+</p>
 </Link>
 </div>
 </div>
