@@ -52,24 +52,6 @@ export default function Signup() {
 
             <OAuth/>
 
-            
-         <div className="flex gap-4">
-          <button className='bg-slate-900 text-blue-300 
-            p-3 rounded-full w-14 h-14 flex items-center justify-center
-            hover:opacity-90 '>
-          <img src="https://cdn.pixabay.com/photo/2022/01/30/13/33/github-6980894_960_720.png" 
-         alt="GitHub Logo" className="w-10 h-10" />
-         </button>
-{/* 
-         <button className='bg-red-500 text-white 
-            p-3 rounded-full w-14 h-14 flex items-center justify-center
-            hover:opacity-90 disabled:opacity-80'>
-        <img src="https://www.transparentpng.com/thumb/google-logo/google-logo-png-icon-free-download-SUF63j.png" 
-         alt="Google Logo" className="w-10 h-10" />
-         </button> */}
-         </div>
-        
-
          <div className="flex gap-2 mt-5">
           <p>Have an account?</p>
           <Link to='/Signin'>
