@@ -1,9 +1,12 @@
 import React from 'react';
 import { GoogleAuthProvider, getAuth, signInWithPopup, GithubAuthProvider } from 'firebase/auth';
 import { App } from '../firebase';
+import { useDispatch } from 'react-redux';
+import { signInSuccess } from '../redux/user/userSlice';
 
 function OAuth() {
   // For Google authentication
+  const dispatch = useDispatch();
   const handleGoogleClick = () => {
     const googleProvider = new GoogleAuthProvider();
     const auth = getAuth(App);
@@ -11,24 +14,28 @@ function OAuth() {
     signInWithPopup(auth, googleProvider)
       .then((result) => {
         console.log(result);
+
+        const res = fetch('/api/auth/google',{
+          method: "POST",
+          headers:{
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name:result.user.displayName,
+            email:result.user.email,
+            images:result.user.photoURL
+          })
+          
+        })
+        const data = res.json();
+        dispatch(signInSuccess(data))
       })
       .catch((error) => {
         console.log('Google OAuth Error', error);
       });
   };
 
-  // const res = fetch('/api/auth/google',{
-  //   method: "POST",
-  //   headers:{
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify({
-  //     name:result.user.displayName,
-  //     email:result.user.email,
-  //     images:result.user.photoURL
-  //   })
-    
-  // })
+  
 
   // For GitHub authentication
   const handleGithubClick = () => {
